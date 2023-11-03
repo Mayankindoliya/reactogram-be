@@ -3,9 +3,10 @@ const { deleteOne, updateOne } = require('../models/user_model');
 
 module.exports = class PostController {
 
-  //Retrieve post:
+  //Retrieve allPost:
   static async getPosts() {
     return await Post.find({}, "")
+      .populate("comments.commentedBy", "_id fullName")
       .populate('user', '_id fullName profile_img')
       .lean()
   }
